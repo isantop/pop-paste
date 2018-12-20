@@ -27,6 +27,6 @@ setup(
     author='Ian Santopietro',
     author_email='isantop@gmail.com',
     license='ISC',
-    packages=['pop-paste'],
+    packages=['pop_paste'],
     scripts=['bin/pop-paste'],
 )

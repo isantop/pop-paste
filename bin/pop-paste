@@ -21,7 +21,6 @@ def main():
 
     parser.add_argument(
         'input',
-        dest = 'input',
         metavar = 'INPUT',
         help = 'The contents to paste'
     )
@@ -30,7 +29,6 @@ def main():
         '-E',
         '--echo',
         action = 'store_true',
-        dest = 'echo',
         help='Also echo the paste content to standard output.'
     )
 
@@ -45,7 +43,6 @@ def main():
     parser.add_argument(
         '-t',
         '--title',
-        dest = 'title',
         metavar = 'TITLE',
         help = 'The title of the paste'
     )
@@ -53,8 +50,7 @@ def main():
     parser.add_argument(
         '-p',
         '--private',
-        action = 'store_true'
-        dest = 'private',
+        action = 'store_true',
         help = (
             'Makes the post private, which prevents is from being shown '
             'in searches'
@@ -64,9 +60,7 @@ def main():
     parser.add_argument(
         '-e',
         '--expire',
-        action = 'store_true',
-        dest = 'expire',
-        metavar = 'MINUTES'
+        metavar = 'MINUTES',
         help = 'Set the paste to expire after MINUTES minutes.'
     )
 
@@ -86,7 +80,7 @@ def main():
     paste['title'] = 'Pasted from pop-paste'
 
     if args.author:
-        paste['name'] = args.author
+        paste['name'] = args.name
     if args.title:
         paste['title'] = args.title
     if args.private:
