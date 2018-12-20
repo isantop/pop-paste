@@ -4,7 +4,7 @@ output.log
 
 # Debian Packaging artefacts:
 debian/.debhelper/
-debian/kernelstub
+debian/pop-paste
 debian/*.debhelper
 debian/*.substvars
 debian/files
