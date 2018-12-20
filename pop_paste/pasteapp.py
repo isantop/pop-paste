@@ -6,6 +6,7 @@ py2deb - Release a debian package based on a python distutils setup file.
 Copyright 2018 Ian Santopietro <isantop@gmail.com>
 """
 
+import json
 from urllib import request as req
 from urllib import parse
 
@@ -30,3 +31,11 @@ class Paste():
         request = req.Request(self.create_url, data=data)
         response = req.urlopen(request)
         return response.read().decode('utf-8')
+
+    def get_langs(self):
+        """
+        Gets a dict of supported languages from the pastebin.
+        """
+        request = req.Request('{}/langs'.format(self.api_url))
+        response = req.urlopen(request)
+        return json.loads(response.read().decode('utf-8'))

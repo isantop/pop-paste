@@ -12,7 +12,7 @@ def get_username():
 
     return user_info[0]
 
-def main():
+def do_paste():
 
     parser = argparse.ArgumentParser(
         prog = 'pop-paste',
@@ -22,6 +22,7 @@ def main():
     parser.add_argument(
         'input',
         metavar = 'INPUT',
+        nargs = '?',
         help = 'The contents to paste'
     )
     
@@ -72,10 +73,36 @@ def main():
         help = 'Make the paste a reply to PASTEID.'
     )
 
+    parser.add_argument(
+        '-l',
+        '--language',
+        metavar = 'LANG',
+        help = 'Set the paste language to LANG. Default is "text".'
+    )
+
+    parser.add_argument(
+        '-L',
+        '--list-languages',
+        action = 'store_true',
+        dest = 'list',
+        help = 'Print a list of available languages and exit.'
+    )
+
     args = parser.parse_args()
+    paster = pasteapp.Paste()
+
+    if args.list:
+        langs = ''
+        lang_list = paster.get_langs()
+        for key, value in lang_list.items():
+            nice_key = '{} :'.format(key)
+            langs += '{:15} {}\n'.format(nice_key, value)
+        
+        return langs
 
     paste = {}
-    paste['text'] = args.input
+    if args.input:
+        paste['text'] = args.input
     paste['name'] = get_username()
     paste['title'] = 'Pasted from pop-paste'
 
@@ -85,11 +112,17 @@ def main():
         paste['title'] = args.title
     if args.private:
         paste['private'] = '1'
+    if args.expire:
+        paste['expire'] = args.expire
+    if args.parent_pid:
+        paste['reply'] = args.parent_pid
 
-    paster = pasteapp.Paste()
     safe_paste = paster.get_encoded_paste(paste)
     result = paster.send_paste(safe_paste)
-    print(result)
+    return result
+
+def main():
+    print(do_paste())
 
 if __name__ == '__main__':
     main()
