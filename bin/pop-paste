@@ -79,15 +79,17 @@ def main():
     paste['name'] = get_username()
     paste['title'] = 'Pasted from pop-paste'
 
-    if args.author:
+    if args.name:
         paste['name'] = args.name
     if args.title:
         paste['title'] = args.title
     if args.private:
         paste['private'] = '1'
 
-    paste = pasteapp.Paste()
-
+    paster = pasteapp.Paste()
+    safe_paste = paster.get_encoded_paste(paste)
+    result = paster.send_paste(safe_paste)
+    print(result)
 
 if __name__ == '__main__':
     main()
