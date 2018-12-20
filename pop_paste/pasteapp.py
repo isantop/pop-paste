@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-py2deb - Release a debian package based on a python distutils setup file.
+pop-paste - A simple CLI Utility to paste text to the Pop_Planet pastebin.
 
 Copyright 2018 Ian Santopietro <isantop@gmail.com>
 """
