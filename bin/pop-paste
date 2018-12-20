@@ -1,0 +1,99 @@
+#!/usr/bin/python3
+
+import argparse
+import os
+import pwd
+
+from pop_paste import pasteapp
+
+def get_username():
+    uid = os.getuid()
+    user_info = pwd.getpwuid(uid)
+
+    return user_info[0]
+
+def main():
+
+    parser = argparse.ArgumentParser(
+        prog = 'pop-paste',
+        description = 'Paste input from command line to Pop_Planet\'s Pastebin'
+    )
+
+    parser.add_argument(
+        'input',
+        dest = 'input',
+        metavar = 'INPUT',
+        help = 'The contents to paste'
+    )
+    
+    parser.add_argument(
+        '-E',
+        '--echo',
+        action = 'store_true',
+        dest = 'echo',
+        help='Also echo the paste content to standard output.'
+    )
+
+    parser.add_argument(
+        '-a',
+        '--author',
+        dest = 'name',
+        metavar = 'AUTHOR',
+        help = 'The paste author. The default is {}'.format(get_username())
+    )
+
+    parser.add_argument(
+        '-t',
+        '--title',
+        dest = 'title',
+        metavar = 'TITLE',
+        help = 'The title of the paste'
+    )
+
+    parser.add_argument(
+        '-p',
+        '--private',
+        action = 'store_true'
+        dest = 'private',
+        help = (
+            'Makes the post private, which prevents is from being shown '
+            'in searches'
+        )
+    )
+
+    parser.add_argument(
+        '-e',
+        '--expire',
+        action = 'store_true',
+        dest = 'expire',
+        metavar = 'MINUTES'
+        help = 'Set the paste to expire after MINUTES minutes.'
+    )
+
+    parser.add_argument(
+        '-r',
+        '--reply',
+        dest = 'parent_pid',
+        metavar = 'PASTEID',
+        help = 'Make the paste a reply to PASTEID.'
+    )
+
+    args = parser.parse_args()
+
+    paste = {}
+    paste['text'] = args.input
+    paste['name'] = get_username()
+    paste['title'] = 'Pasted from pop-paste'
+
+    if args.author:
+        paste['name'] = args.author
+    if args.title:
+        paste['title'] = args.title
+    if args.private:
+        paste['private'] = '1'
+
+    paste = pasteapp.Paste()
+
+
+if __name__ == '__main__':
+    main()
