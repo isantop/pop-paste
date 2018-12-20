@@ -3,6 +3,7 @@
 import argparse
 import os
 import pwd
+import sys
 
 from pop_paste import pasteapp
 
@@ -23,7 +24,15 @@ def do_paste():
         'input',
         metavar = 'INPUT',
         nargs = '?',
-        help = 'The contents to paste'
+        help = 'The text to paste'
+    )
+    parser.add_argument(
+        'hiddeninput',
+        metavar = 'INPUT',
+        nargs = '?',
+        default = sys.stdin,
+        type = argparse.FileType('r'),
+        help = argparse.SUPPRESS
     )
     
     parser.add_argument(
@@ -103,6 +112,8 @@ def do_paste():
     paste = {}
     if args.input:
         paste['text'] = args.input
+    else:
+        paste['text'] = args.hiddeninput.read()
     paste['name'] = get_username()
     paste['title'] = 'Pasted from pop-paste'
 
@@ -116,6 +127,8 @@ def do_paste():
         paste['expire'] = args.expire
     if args.parent_pid:
         paste['reply'] = args.parent_pid
+    if args.language:
+        paste['lang'] = args.language
 
     safe_paste = paster.get_encoded_paste(paste)
     result = paster.send_paste(safe_paste)
