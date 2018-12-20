@@ -1,5 +1,11 @@
-pop-paste (0.0.1) UNRELEASED; urgency=medium
+pop-paste (0.0.2) cosmic; urgency=medium
+
+  * Make the application work functionally
+
+ -- Ian Santopietro <ian@pop-os.localdomain>  Thu, 20 Dec 2018 15:10:02 -0700
+
+pop-paste (0.0.1) cosmic; urgency=medium
 
   * Initial release. 
 
- -- Ian Santopietro <isantop@gmail.com>  Thu, 20 Dec 2018 13:53:03 -0700
+ -- Ian Santopietro <ian@pop-os.localdomain>  Thu, 20 Dec 2018 15:09:47 -0700

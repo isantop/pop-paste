@@ -21,7 +21,7 @@ from distutils.core import setup
 
 setup(
     name='pop-paste',
-    version='0.0.1',
+    version='0.0.2',
     description='Paste to Pop_Planet\'s Pastebin from the command line!',
     url='https://github.com/isantop/pop-paste',
     author='Ian Santopietro',
