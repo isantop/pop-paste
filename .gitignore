@@ -1,5 +1,14 @@
 # Other files here:
 output.log
+.buildconfig
+
+# Debian Packaging artefacts:
+debian/.debhelper/
+debian/kernelstub
+debian/*.debhelper
+debian/*.substvars
+debian/files
+debian/pop-boot
 
 # Editor TMP files
 *~
@@ -30,6 +39,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+.pybuild/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
